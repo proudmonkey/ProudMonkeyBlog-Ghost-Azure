@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="{{@site.lang}}">
 <head>
 
@@ -13,7 +13,8 @@
 
     {{!-- Styles'n'Scripts --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
-
+    <link rel="stylesheet" type="text/css" href="{{asset "built/prism.css"}}" />
+    <script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="ImP9gONBW" data-description="Support me on Buy me a coffee!" data-message="If you like my content — or just feeling generous, consider buying a coffee. Thank you!" data-color="#FF813F" data-position="right" data-x_margin="18" data-y_margin="18"></script>
     {{!-- This tag outputs SEO meta+structured data and other important settings --}}
     {{ghost_head}}
 
@@ -52,7 +53,7 @@
         <a class="subscribe-close-button" href="#"></a>
         <div class="subscribe-overlay-content">
             {{#if @site.logo}}
-                <img class="subscribe-overlay-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
+            <img class="subscribe-overlay-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
             {{/if}}
             <div class="subscribe-form">
                 <h1 class="subscribe-overlay-title">Subscribe to {{@site.title}}</h1>
@@ -60,7 +61,7 @@
                 <form data-members-form="subscribe">
                     <div class="form-group">
                         <input class="subscribe-email" data-members-email placeholder="youremail@example.com"
-                            autocomplete="false" />
+                               autocomplete="false" />
                         <button class="button primary" type="submit">
                             <span class="button-content">Subscribe</span>
                             <span class="button-loader">{{> "icons/loader"}}</span>
@@ -79,13 +80,13 @@
     {{/if}}
 
     {{!-- jQuery, required for fitvids --}}
-    <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
     </script>
     {{!-- Fitvids (for responsive video embeds), infinite scroll, floating header, and gallery card support --}}
     <script src="{{asset "built/casper.js"}}"></script>
+    <script src="{{asset "built/prism.js"}}"></script>
 
     {{!-- Scripts for Members subscription --}}
     <script>
@@ -113,11 +114,24 @@
             });
 
             // Reset form on opening subscrion overlay
-            $('.subscribe-button').click(function() {
+            $('.subscribe-button').click(function () {
                 $('.subscribe-overlay form').removeClass();
                 $('.subscribe-email').val('');
             });
         });
+    </script>
+
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES * * */
+        var disqus_shortname = 'proudmonkey';
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script'); s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
     </script>
 
     {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. --}}
