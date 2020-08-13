@@ -106,7 +106,6 @@ into the {body} of the default.hbs template --}}
             <section class="post-full-content">
                 <div class="post-content">
                     {{content}}
-                    <a href="https://www.buymeacoffee.com/ImP9gONBW" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;"></a>
                 </div>
             </section>
 
@@ -116,22 +115,9 @@ into the {body} of the default.hbs template --}}
             {{/if}}
 
              
-        <section class="post-full-comments">
-            <div id="disqus_thread"></div>
-            <script>
-                var disqus_config = function () {
-                    this.page.url = "{{url absolute="true"}}";
-                    this.page.identifier = "ghost-{{comment_id}}"
-                    };
-
-                (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://proudmonkey.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', + new Date());
-                (d.head || d.body).appendChild(s);
-                })();
-            </script>
-        </section>
+            <section class="post-full-comments">
+               
+            </section>
 
         </article>
 
