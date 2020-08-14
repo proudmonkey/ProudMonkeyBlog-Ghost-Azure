@@ -20,6 +20,19 @@ into the {body} of the default.hbs template --}}
     </div>
 </header>
 
+{{!-- Vince's about page, sticky post at top --}}
+<section class="outer">
+    <div class="inner">
+		<div style="margin-top:30px;">
+            {{#get "pages" slug="aboutme" as |post|}}
+                {{#post}}
+                    {{> "post-card-about"}}
+                {{/post}}
+            {{/get}}
+		</div>
+    </div>
+</section>
+
 {{!-- The main content area --}}
 <main id="site-main" class="site-main outer">
     <div class="inner posts">
