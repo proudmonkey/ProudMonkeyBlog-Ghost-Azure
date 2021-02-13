@@ -6,23 +6,22 @@ const ghostVersion = require('../../lib/ghost-version');
 const {i18n} = require('../../lib/common');
 const logging = require('../../../shared/logging');
 const errors = require('@tryghost/errors');
-const security = require('../../lib/security');
+const security = require('@tryghost/security');
 const models = require('../../models');
-const EXCLUDED_TABLES = ['sessions', 'mobiledoc_revisions'];
+const EXCLUDED_TABLES = ['sessions', 'mobiledoc_revisions', 'email_batches', 'email_recipients'];
+const EXCLUDED_SETTING_KEYS = [
+    'stripe_connect_publishable_key',
+    'stripe_connect_secret_key',
+    'stripe_connect_account_id',
+    'stripe_secret_key',
+    'stripe_publishable_key',
+    'members_stripe_webhook_id',
+    'members_stripe_webhook_secret'
+];
 
 const modelOptions = {context: {internal: true}};
 
-// private
-let getVersionAndTables;
-
-let exportTable;
-
-// public
-let doExport;
-
-let exportFileName;
-
-exportFileName = function exportFileName(options) {
+const exportFileName = function exportFileName(options) {
     const datetime = require('moment')().format('YYYY-MM-DD-HH-mm-ss');
     let title = '';
 
@@ -45,7 +44,7 @@ exportFileName = function exportFileName(options) {
     });
 };
 
-getVersionAndTables = function getVersionAndTables(options) {
+const getVersionAndTables = function getVersionAndTables(options) {
     const props = {
         version: ghostVersion.full,
         tables: commands.getTables(options.transacting)
@@ -54,7 +53,7 @@ getVersionAndTables = function getVersionAndTables(options) {
     return Promise.props(props);
 };
 
-exportTable = function exportTable(tableName, options) {
+const exportTable = function exportTable(tableName, options) {
     if (EXCLUDED_TABLES.indexOf(tableName) < 0 ||
         (options.include && _.isArray(options.include) && options.include.indexOf(tableName) !== -1)) {
         const query = (options.transacting || db.knex)(tableName);
@@ -63,7 +62,13 @@ exportTable = function exportTable(tableName, options) {
     }
 };
 
-doExport = function doExport(options) {
+const getSettingsTableData = function getSettingsTableData(settingsData) {
+    return settingsData && settingsData.filter((setting) => {
+        return !EXCLUDED_SETTING_KEYS.includes(setting.key);
+    });
+};
+
+const doExport = function doExport(options) {
     options = options || {include: []};
 
     let tables;
@@ -88,7 +93,11 @@ doExport = function doExport(options) {
         };
 
         _.each(tables, function (name, i) {
-            exportData.data[name] = tableData[i];
+            if (name === 'settings') {
+                exportData.data[name] = getSettingsTableData(tableData[i]);
+            } else {
+                exportData.data[name] = tableData[i];
+            }
         });
 
         return exportData;
