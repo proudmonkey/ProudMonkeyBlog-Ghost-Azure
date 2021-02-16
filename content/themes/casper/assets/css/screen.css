@@ -3115,6 +3115,43 @@ Usage (In Ghost editor):
 
 /* TOC
 /* ---------------------------------------------------------- */
+
+/* Offset headings from fixed header */
+.post-content h2::before,
+.post-content h3::before {
+    display: block;
+    content: " ";
+    height: 84px;
+    margin-top: -84px;
+    visibility: hidden;
+}
+
+/* Adjust content wrapper */
+.post-content {
+    display: block;
+}
+
+/* Adjustments to wide and full width cards */
+.kg-gallery-card,
+.kg-width-wide,
+.kg-width-full {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .kg-gallery-card > *,
+    .kg-width-wide > *,
+    .kg-width-full > *,
+    figure.kg-width-full img {
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+.post-full-content pre {
+    max-width: 0;
+}
+
 .post-content h2,
 .post-content h3 {
     outline: none;
