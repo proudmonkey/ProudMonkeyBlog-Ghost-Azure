@@ -30,7 +30,11 @@
     },
     "members": {
         "contentApiAccess": [],
-        "paymentProcessors": []
+        "paymentProcessors": [],
+        "emailTemplate": {
+            "showSiteHeader": true,
+            "showPoweredBy": true
+        }
     },
     "logging": {
         "level": "info",
@@ -110,5 +114,10 @@
     "preloadHeaders": false,
     "adminFrameProtection": true,
     "sendWelcomeEmail": true,
-    "stripeDirect": false
+    "stripeDirect": false,
+    "enableStripePromoCodes": false,
+    "emailAnalytics": true,
+    "backgroundJobs": {
+        "emailAnalytics": true
+    }
 }

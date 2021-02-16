@@ -17,7 +17,7 @@ const doBlock = fn => fn();
 
 const getMembersKey = doBlock(() => {
     let UNO_KEYPAIRINO;
-    return function getMembersKey(type) {
+    return function getKey(type) {
         if (!UNO_KEYPAIRINO) {
             UNO_KEYPAIRINO = keypair({bits: 1024});
         }
@@ -27,7 +27,7 @@ const getMembersKey = doBlock(() => {
 
 const getGhostKey = doBlock(() => {
     let UNO_KEYPAIRINO;
-    return function getGhostKey(type) {
+    return function getKey(type) {
         if (!UNO_KEYPAIRINO) {
             UNO_KEYPAIRINO = keypair({bits: 1024});
         }
@@ -89,12 +89,6 @@ function getDefaultSettings() {
 Settings = ghostBookshelf.Model.extend({
 
     tableName: 'settings',
-
-    defaults: function defaults() {
-        return {
-            type: 'core'
-        };
-    },
 
     emitChange: function emitChange(event, options) {
         const eventToTrigger = 'settings' + '.' + event;

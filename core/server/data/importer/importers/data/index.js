@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const semver = require('semver');
 const {IncorrectUsageError} = require('@tryghost/errors');
 const debug = require('ghost-ignition').debug('importer:data');
-const sequence = require('../../../../lib/promise/sequence');
+const {sequence} = require('@tryghost/promise');
 const models = require('../../../../models');
 const PostsImporter = require('./posts');
 const TagsImporter = require('./tags');
@@ -57,14 +57,14 @@ DataImporter = {
         if (!importData.meta) {
             return Promise.reject(new IncorrectUsageError({
                 message: 'Wrong importer structure. `meta` is missing.',
-                help: 'https://ghost.org/docs/api/migration/#json-file-structure'
+                help: 'https://ghost.org/docs/migration/custom/'
             }));
         }
 
         if (!importData.meta.version) {
             return Promise.reject(new IncorrectUsageError({
                 message: 'Wrong importer structure. `meta.version` is missing.',
-                help: 'https://ghost.org/docs/api/migration/#json-file-structure'
+                help: 'https://ghost.org/docs/migration/custom/'
             }));
         }
 
@@ -73,7 +73,7 @@ DataImporter = {
         if (!semver.valid(importData.meta.version)) {
             return Promise.reject(new IncorrectUsageError({
                 message: 'Detected unsupported file structure.',
-                help: 'Please install Ghost 1.0, import the file and then update your blog to the latest Ghost version.\nVisit https://ghost.org/update/?v=0.1 or ask for help in our https://forum.ghost.org.'
+                help: 'Please install Ghost 1.0, import the file and then update your blog to the latest Ghost version.\nVisit https://ghost.org/docs/update/ or ask for help in our https://forum.ghost.org.'
             }));
         }
 
@@ -147,9 +147,9 @@ DataImporter = {
             });
 
             return toReturn;
-        }).catch(function (errors) {
-            debug(errors);
-            return Promise.reject(errors);
+        }).catch(function (err) {
+            debug(err);
+            return Promise.reject(err);
         }).finally(() => {
             // release memory
             importers = {};
