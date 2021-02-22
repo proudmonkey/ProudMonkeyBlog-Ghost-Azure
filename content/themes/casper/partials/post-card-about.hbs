@@ -19,21 +19,25 @@
 		</section>
 
 	</div>{{!--/.post-card-content--}}
-
 	{{#if feature_image}}
-		<div style="margin-left:120px;">
-			<img style="border-radius: 50%;"
-				 srcset="{{img_url feature_image size="s"}} 300w,
+	<div style="margin-left:120px;">
+		<img style="border-radius: 50%;"
+			 srcset="{{img_url feature_image size="s"}} 300w,
 								{{img_url feature_image size="m"}} 600w,
 								{{img_url feature_image size="l"}} 1000w,
 								{{img_url feature_image size="xl"}} 2000w"
-				 sizes="(max-width: 1000px) 400px, 700px"
-				 loading="lazy"
-				 src="{{img_url feature_image size="m"}}"
-				 alt="{{title}}"
-		</div>
-		<div style="margin-left:40px;margin-top:20px">
-			<iframe src="https://github.com/sponsors/proudmonkey/button" title="Sponsor proudmonkey" height="35" width="116" style="border: 0;"></iframe>
-		</div>
+			 sizes="(max-width: 1000px) 400px, 700px"
+			 loading="lazy"
+			 src="{{img_url feature_image size="m"}}"
+			 alt="{{title}}"
+	</div>
+	<div style="text-align:center;margin-top:10px">
+		<a href="https://www.patreon.com/bePatron?u=51121765" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
+		<script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+	</div>
+	<div style="text-align:center;margin-top:12px">
+		<iframe src="https://github.com/sponsors/proudmonkey/button" title="Sponsor proudmonkey" height="35" width="116" style="border: 0;"></iframe>
+	</div>
+
 	{{/if}}
 </article>
